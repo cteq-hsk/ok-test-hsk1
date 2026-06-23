@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Đề Thi Thử HSK 1 — Bài 4, 5, 6</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: rgba(255,255,255,0.07);
+    --teal: #00e6b4;
+    --cyan: #00b4d8;
+    --gold: #ffd166;
+    --rose: #ff6b9d;
+    --violet: #a78bfa;
+    --text: #e6edf3;
+    --dim: #8b949e;
+    --font-vi: 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif;
+    --font-zh: 'SimSun', 'STSong', 'Songti SC', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    background-image: radial-gradient(ellipse at 80% 20%, rgba(0,230,180,0.06) 0%, transparent 60%);
+    color: var(--text);
+    font-family: var(--font-vi);
+    font-size: 16px;
+    min-height: 100vh;
+  }
+  .zh { font-family: var(--font-zh) !important; font-weight: 400 !important; }
+
+  /* === MODAL LOGIN === */
+  #loginModal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; padding: 20px;
+  }
+  .modal-box {
+    background: var(--surface); border: 1px solid rgba(0,230,180,0.3);
+    border-radius: 20px; padding: 36px 28px; width: 100%; max-width: 420px;
+    box-shadow: 0 0 40px rgba(0,230,180,0.15);
+  }
+  .modal-logo { text-align: center; margin-bottom: 24px; }
+  .modal-logo .badge {
+    display: inline-block; background: linear-gradient(135deg,#00e6b4,#00b4d8);
+    color: #000; font-weight: 900; font-size: 13px; padding: 4px 12px; border-radius: 20px; letter-spacing: 1px;
+  }
+  .modal-logo h1 { font-size: 22px; font-weight: 900; margin-top: 10px; }
+  .modal-logo p { color: var(--dim); font-size: 14px; margin-top: 4px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 13px; color: var(--dim); margin-bottom: 6px; font-weight: 700; }
+  .form-group input {
+    width: 100%; padding: 12px 14px; background: var(--surface2);
+    border: 1.5px solid var(--border); border-radius: 10px;
+    color: var(--text); font-size: 16px; font-family: var(--font-vi);
+    outline: none; transition: border 0.2s;
+  }
+  .form-group input:focus { border-color: var(--teal); }
+  .btn-start {
+    width: 100%; padding: 14px; background: linear-gradient(135deg,#00e6b4,#00b4d8);
+    border: none; border-radius: 12px; color: #000; font-size: 17px; font-weight: 900;
+    cursor: pointer; transition: opacity 0.2s; font-family: var(--font-vi);
+  }
+  .btn-start:hover { opacity: 0.9; }
+  .exam-note { background: rgba(255,209,102,0.1); border: 1px solid rgba(255,209,102,0.3);
+    border-radius: 10px; padding: 12px; margin-bottom: 20px; font-size: 13px; color: var(--gold); line-height: 1.5; }
+
+  /* === HEADER === */
+  #examHeader {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    background: rgba(13,17,23,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border); padding: 0 20px;
+  }
+  .header-inner {
+    max-width: 800px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; gap: 12px;
+  }
+  .header-title { font-size: 14px; font-weight: 700; color: var(--text); }
+  .header-title span { color: var(--teal); }
+  .timer-box {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(0,230,180,0.1); border: 1px solid rgba(0,230,180,0.3);
+    border-radius: 20px; padding: 6px 14px; font-weight: 700; font-size: 15px;
+    color: var(--teal); letter-spacing: 1px;
+  }
+  .timer-box.warn { background: rgba(255,107,157,0.15); border-color: var(--rose); color: var(--rose); }
+  .progress-info { font-size: 12px; color: var(--dim); text-align: right; }
+
+  /* Progress bar */
+  .progress-bar-wrap { height: 3px; background: rgba(255,255,255,0.05); }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg,#00e6b4,#00b4d8); transition: width 0.4s; }
+
+  /* === MAIN CONTENT === */
+  #examBody { max-width: 800px; margin: 0 auto; padding: 76px 16px 120px; }
+
+  /* === SECTION NAV === */
+  .section-tabs {
+    display: flex; gap: 6px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .section-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0; padding: 8px 14px; border-radius: 20px; border: 1.5px solid var(--border);
+    background: var(--surface2); color: var(--dim); font-size: 13px; font-family: var(--font-vi);
+    cursor: pointer; font-weight: 700; transition: all 0.2s; white-space: nowrap;
+  }
+  .tab-btn.active { background: rgba(0,230,180,0.15); border-color: var(--teal); color: var(--teal); }
+  .tab-btn.done { border-color: rgba(0,230,180,0.3); color: rgba(0,230,180,0.6); }
+  .tab-btn.listen-tab { }
+
+  /* === SECTION HEADER === */
+  .section-header {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; margin-bottom: 20px;
+  }
+  .section-header .skill-badge {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    padding: 3px 10px; border-radius: 10px; margin-bottom: 10px;
+  }
+  .skill-badge.ting { background: rgba(167,139,250,0.15); color: var(--violet); border: 1px solid rgba(167,139,250,0.3); }
+  .skill-badge.yue { background: rgba(0,180,216,0.15); color: var(--cyan); border: 1px solid rgba(0,180,216,0.3); }
+  .section-header h2 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+  .section-header h2 .zh { font-size: 22px; color: var(--teal); }
+  .section-header .instr { font-size: 14px; color: var(--dim); line-height: 1.6; }
+
+  /* === QUESTION CARD === */
+  .q-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; margin-bottom: 14px;
+    transition: border-color 0.2s;
+  }
+  .q-card.answered { border-color: rgba(0,230,180,0.25); }
+  .q-num { font-size: 12px; font-weight: 700; color: var(--dim); margin-bottom: 10px; }
+  .q-num span { color: var(--teal); font-size: 14px; }
+
+  /* Audio section */
+  .audio-area { margin-bottom: 16px; }
+  .audio-script {
+    background: rgba(0,230,180,0.05); border: 1px dashed rgba(0,230,180,0.2);
+    border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; display: none;
+  }
+  .audio-script .zh { font-size: 18px; line-height: 1.8; color: var(--text); }
+  .audio-script .pinyin { font-size: 13px; color: var(--gold); margin-bottom: 4px; }
+  .btn-play {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; background: rgba(167,139,250,0.12);
+    border: 1.5px solid rgba(167,139,250,0.4); border-radius: 20px;
+    color: var(--violet); font-size: 14px; font-family: var(--font-vi);
+    cursor: pointer; font-weight: 700; transition: all 0.2s;
+  }
+  .btn-play:hover { background: rgba(167,139,250,0.2); }
+  .btn-play.playing { color: var(--rose); border-color: var(--rose); animation: pulse 1s infinite; }
+  .play-count { font-size: 11px; color: var(--dim); margin-left: 10px; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+  /* Dialogue display */
+  .dialogue { margin-bottom: 12px; }
+  .dialogue .line { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .dialogue .line:last-child { border-bottom: none; }
+  .dialogue .role { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 10px; flex-shrink: 0; align-self: flex-start; margin-top: 2px; }
+  .role.nv { background: rgba(255,107,157,0.15); color: var(--rose); }
+  .role.nan { background: rgba(0,180,216,0.15); color: var(--cyan); }
+  .dialogue .line-text .zh { font-size: 17px; }
+
+  /* 6-image shared pool */
+  .shared-pool {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin-bottom: 16px; padding: 14px; background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border); border-radius: 12px;
+  }
+  .pool-item {
+    text-align: center; padding: 10px 4px; background: var(--surface2);
+    border-radius: 10px; border: 2px solid transparent;
+  }
+  .pool-item .pool-emoji { font-size: 36px; display: block; margin-bottom: 4px; }
+  .pool-item .pool-label { font-size: 13px; font-weight: 700; color: var(--dim); }
+  /* Pool photo wrapper — 16:9 landscape để 6 item vừa grid 3×2 */
+  .pool-photo-wrap {
+    width: 100%; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden;
+    position: relative; margin-bottom: 4px; background: #1e2530;
+  }
+  .pool-photo { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 8px; }
+  .pool-photo-fallback {
+    position: absolute; inset: 0; display: none;
+    align-items: center; justify-content: center; font-size: 34px;
+    background: #1e2530; border-radius: 8px;
+  }
+
+  /* Options: 3-choice image (emoji) */
+  .options-emoji {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px;
+  }
+  .opt-emoji-btn {
+    background: var(--surface2); border: 2px solid var(--border);
+    border-radius: 12px; padding: 8px; text-align: center;
+    cursor: pointer; transition: all 0.2s; font-family: var(--font-vi);
+    overflow: hidden;
+  }
+  .opt-emoji-btn:active { transform: scale(0.96); }
+  .opt-emoji-btn .opt-letter { font-size: 11px; font-weight: 700; color: var(--dim); margin-bottom: 6px; }
+  .opt-emoji-btn .opt-emoji { font-size: 42px; display: block; margin-bottom: 4px; line-height: 1; }
+  /* P1 option photo wrapper — 4:3 portrait để ảnh rõ, mỗi card 1/3 màn hình */
+  .opt-photo-wrap {
+    width: 100%; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden;
+    position: relative; margin-bottom: 6px; background: #1e2530;
+  }
+  .opt-photo { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 8px; }
+  .opt-photo-fallback {
+    position: absolute; inset: 0; display: none;
+    align-items: center; justify-content: center; font-size: 42px;
+    background: #1e2530; border-radius: 8px;
+  }
+  .opt-emoji-btn.selected { background: rgba(0,230,180,0.12); border-color: var(--teal); }
+  .opt-emoji-btn.selected .opt-letter { color: var(--teal); }
+
+  /* Options: 3-choice text */
+  .options-text { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .opt-text-btn {
+    background: var(--surface2); border: 2px solid var(--border);
+    border-radius: 12px; padding: 12px 14px; cursor: pointer;
+    transition: all 0.2s; display: flex; align-items: flex-start; gap: 10px;
+    font-family: var(--font-vi); text-align: left;
+  }
+  .opt-text-btn .opt-label {
+    width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%;
+    background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: var(--dim); margin-top: 1px;
+  }
+  .opt-text-btn .opt-content { flex: 1; }
+  .opt-text-btn .zh { font-size: 17px; line-height: 1.6; }
+  .opt-text-btn .py { font-size: 13px; color: var(--gold); margin-bottom: 2px; }
+  .opt-text-btn.selected {
+    background: rgba(0,230,180,0.14); border-color: var(--teal); border-width: 2.5px;
+    box-shadow: 0 0 12px rgba(0,230,180,0.18);
+  }
+  .opt-text-btn.selected .opt-label {
+    background: var(--teal); color: #000; font-weight: 900;
+  }
+  .opt-text-btn.selected .opt-label::after { content: ' ✓'; }
+
+  /* Options: 6-choice radio (for P3 listening / R1 reading) */
+  .options-6 {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px;
+  }
+  .opt-6-btn {
+    background: var(--surface2); border: 2px solid var(--border);
+    border-radius: 10px; padding: 8px 4px; text-align: center;
+    cursor: pointer; transition: all 0.2s; font-family: var(--font-vi);
+    overflow: hidden;
+  }
+  .opt-6-btn .opt-letter { font-size: 12px; font-weight: 700; color: var(--dim); margin-bottom: 2px; }
+  .opt-6-btn.selected {
+    background: rgba(0,230,180,0.16); border-color: var(--teal); border-width: 2.5px;
+    box-shadow: 0 0 12px rgba(0,230,180,0.18);
+  }
+  .opt-6-btn.selected .opt-letter { color: var(--teal); font-weight: 900; }
+
+  /* Settings modal */
+  #sheetModal {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+    z-index: 200; align-items: center; justify-content: center; padding: 20px;
+  }
+  #sheetModal.open { display: flex; }
+  .sheet-modal-box {
+    background: var(--surface); border: 1px solid rgba(0,230,180,0.3);
+    border-radius: 20px; padding: 28px; width: 100%; max-width: 500px;
+    box-shadow: 0 0 40px rgba(0,230,180,0.12);
+  }
+  .sheet-modal-box h3 { font-size: 18px; font-weight: 900; margin-bottom: 8px; }
+  .sheet-modal-box p { color: var(--dim); font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+  .sheet-url-input {
+    width: 100%; padding: 12px 14px; background: var(--surface2);
+    border: 1.5px solid rgba(0,230,180,0.3); border-radius: 10px;
+    color: var(--teal); font-size: 13px; font-family: monospace;
+    outline: none; margin-bottom: 12px; word-break: break-all;
+  }
+  .sheet-url-input:focus { border-color: var(--teal); }
+  .btn-save-sheet {
+    flex: 1; padding: 10px 16px; background: linear-gradient(135deg,#00e6b4,#00b4d8);
+    border: none; border-radius: 10px; color: #000; font-size: 15px; font-weight: 900;
+    cursor: pointer; font-family: var(--font-vi);
+  }
+  .btn-close-modal {
+    width: 100%; padding: 10px; background: transparent;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    color: var(--dim); font-size: 14px; cursor: pointer; font-family: var(--font-vi);
+  }
+  .sheet-status-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 10px;
+  }
+  .sheet-status-badge.ok { background: rgba(0,230,180,0.15); color: var(--teal); border: 1px solid rgba(0,230,180,0.3); }
+  .sheet-status-badge.none { background: rgba(255,209,102,0.15); color: var(--gold); border: 1px solid rgba(255,209,102,0.3); }
+  .btn-settings {
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px; color: var(--dim);
+    font-size: 13px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-settings:hover { border-color: var(--teal); color: var(--teal); }
+  .sheet-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 999;
+    display: flex; align-items: center; justify-content: center; padding: 16px;
+  }
+  .sheet-modal-box {
+    background: #161b22; border: 1px solid rgba(0,230,180,0.25);
+    border-radius: 16px; padding: 24px 22px; width: 100%; max-width: 460px;
+    box-shadow: 0 0 40px rgba(0,230,180,0.12);
+  }
+
+  /* Passage reading */
+  .passage-box {
+    background: rgba(0,180,216,0.05); border: 1px solid rgba(0,180,216,0.2);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 14px;
+  }
+  .passage-box .pinyin { font-size: 13px; color: var(--gold); line-height: 2; margin-bottom: 4px; }
+  .passage-box .zh { font-size: 18px; line-height: 2; }
+  .question-mark {
+    display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px;
+    padding: 10px 12px; background: rgba(167,139,250,0.08); border-radius: 10px;
+    border-left: 3px solid var(--violet);
+  }
+  .q-star { color: var(--violet); font-size: 16px; font-weight: 900; flex-shrink: 0; margin-top: 2px; }
+  .question-mark .zh { font-size: 16px; }
+  .question-mark .py { font-size: 12px; color: var(--gold); }
+
+  /* Reading P2: Matching */
+  .matching-grid { }
+  .match-section-title { font-size: 12px; font-weight: 700; color: var(--dim); margin-bottom: 10px; letter-spacing: 1px; }
+  .match-q-row {
+    display: grid; grid-template-columns: 1fr 80px; gap: 10px; align-items: center;
+    padding: 12px 14px; background: var(--surface2); border-radius: 10px;
+    border: 1.5px solid var(--border); margin-bottom: 8px;
+  }
+  .match-q-text .py { font-size: 12px; color: var(--gold); }
+  .match-q-text .zh { font-size: 16px; }
+  .match-select {
+    width: 100%; padding: 8px; background: rgba(0,230,180,0.1);
+    border: 1.5px solid rgba(0,230,180,0.3); border-radius: 8px;
+    color: var(--teal); font-size: 15px; font-family: var(--font-vi); font-weight: 700;
+    outline: none; cursor: pointer;
+  }
+  .match-answers-pool {
+    background: rgba(0,180,216,0.05); border: 1px solid rgba(0,180,216,0.15);
+    border-radius: 12px; padding: 14px; margin-bottom: 16px;
+  }
+  .match-answer-item {
+    display: flex; gap: 10px; align-items: flex-start; padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .match-answer-item:last-child { border-bottom: none; }
+  .match-ans-label { font-weight: 900; color: var(--cyan); font-size: 15px; flex-shrink: 0; min-width: 20px; }
+  .match-ans-text .py { font-size: 12px; color: var(--gold); }
+  .match-ans-text .zh { font-size: 15px; }
+
+  /* Reading P3: Fill-in-blank */
+  .word-bank {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+    padding: 12px; background: rgba(0,230,180,0.04);
+    border: 1px dashed rgba(0,230,180,0.2); border-radius: 12px;
+  }
+  .word-chip {
+    padding: 6px 14px; background: rgba(0,230,180,0.1);
+    border: 1.5px solid rgba(0,230,180,0.3); border-radius: 20px;
+    font-family: var(--font-vi); cursor: default;
+  }
+  .word-chip .chip-label { font-size: 12px; font-weight: 700; color: var(--dim); }
+  .word-chip .chip-zh { font-size: 16px; color: var(--teal); }
+  .word-chip .chip-py { font-size: 12px; color: var(--gold); }
+  .word-chip.sample { opacity: 0.5; }
+  .fill-sentence { font-size: 18px; line-height: 2.5; }
+  .fill-sentence .zh { font-size: 18px; }
+  .fill-select {
+    display: inline-block; min-width: 90px; padding: 4px 8px;
+    background: rgba(0,230,180,0.1); border: 2px solid rgba(0,230,180,0.4);
+    border-radius: 8px; color: var(--teal); font-size: 16px;
+    font-family: var(--font-vi); font-weight: 700; outline: none; cursor: pointer;
+    vertical-align: middle;
+  }
+  .fill-pinyin { font-size: 13px; color: var(--gold); display: block; margin-bottom: 2px; }
+
+  /* === BOTTOM NAVIGATION === */
+  #bottomNav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(13,17,23,0.95); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border); padding: 12px 20px;
+  }
+  .bottom-inner { max-width: 800px; margin: 0 auto; display: flex; gap: 10px; align-items: center; }
+  .btn-nav {
+    flex: 1; padding: 12px; border-radius: 12px; border: 1.5px solid rgba(0,230,180,0.35);
+    background: rgba(0,230,180,0.08); color: var(--teal); font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: var(--font-vi); transition: all 0.2s;
+  }
+  .btn-nav:hover { background: rgba(0,230,180,0.15); }
+  .btn-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-submit {
+    flex: 2; padding: 12px; border-radius: 12px; border: none;
+    background: linear-gradient(135deg,#00e6b4,#00b4d8); color: #000;
+    font-size: 15px; font-weight: 900; cursor: pointer; font-family: var(--font-vi); transition: opacity 0.2s;
+  }
+  .btn-submit:hover { opacity: 0.9; }
+  .answered-count { font-size: 12px; color: var(--dim); text-align: center; margin-top: 2px; white-space: nowrap; }
+
+  /* === RESULT SCREEN === */
+  #resultScreen {
+    display: none; position: fixed; inset: 0; background: var(--bg);
+    overflow-y: auto; z-index: 80; padding: 30px 16px 40px;
+  }
+  .result-inner { max-width: 600px; margin: 0 auto; }
+  .result-hero { text-align: center; padding: 30px 20px; }
+  .result-score-circle {
+    width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 20px;
+    background: conic-gradient(#00e6b4 0deg, rgba(0,230,180,0.2) 0deg);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; font-size: 42px; font-weight: 900;
+    box-shadow: 0 0 30px rgba(0,230,180,0.3);
+  }
+  .result-emoji { font-size: 54px; margin-bottom: 12px; }
+  .result-msg { font-size: 22px; font-weight: 900; margin-bottom: 6px; }
+  .result-sub { font-size: 15px; color: var(--dim); }
+  .score-breakdown {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;
+  }
+  .score-item {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; text-align: center;
+  }
+  .score-item .s-label { font-size: 12px; color: var(--dim); margin-bottom: 4px; font-weight: 700; }
+  .score-item .s-val { font-size: 28px; font-weight: 900; color: var(--teal); }
+  .score-item .s-total { font-size: 13px; color: var(--dim); }
+  .answer-review { margin-top: 20px; }
+  .review-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--dim); }
+  .answer-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+  }
+  .answer-cell {
+    text-align: center; padding: 8px 4px; border-radius: 8px;
+    font-size: 12px; font-weight: 700; background: var(--surface2);
+  }
+  .answer-cell .q-n { font-size: 11px; color: var(--dim); }
+  .answer-cell.correct { background: rgba(0,230,180,0.15); color: var(--teal); }
+  .answer-cell.wrong { background: rgba(255,107,157,0.15); color: var(--rose); }
+  .answer-cell.empty { background: rgba(255,209,102,0.1); color: var(--gold); }
+
+  /* Submission box */
+  .submit-box {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 20px; margin-top: 20px;
+  }
+  .submit-box h3 { font-size: 16px; font-weight: 900; margin-bottom: 12px; color: var(--teal); }
+  .submit-status { padding: 12px 14px; border-radius: 10px; font-size: 14px; margin-bottom: 12px; }
+  .submit-status.ok { background: rgba(0,230,180,0.1); color: var(--teal); }
+  .submit-status.err { background: rgba(255,107,157,0.1); color: var(--rose); }
+  .submit-status.warn { background: rgba(255,209,102,0.1); color: var(--gold); }
+  .btn-submit-sheet {
+    width: 100%; padding: 14px; border-radius: 12px; border: none;
+    background: linear-gradient(135deg,#00e6b4,#00b4d8); color: #000;
+    font-size: 16px; font-weight: 900; cursor: pointer; font-family: var(--font-vi); margin-bottom: 10px;
+  }
+  .btn-retry {
+    width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid rgba(0,230,180,0.3);
+    background: transparent; color: var(--teal); font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: var(--font-vi);
+  }
+
+  /* Apps Script setup box */
+  .setup-box {
+    background: rgba(255,209,102,0.05); border: 1px solid rgba(255,209,102,0.2);
+    border-radius: 12px; padding: 16px; margin-top: 14px;
+  }
+  .setup-box h4 { font-size: 14px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+  .setup-box ol { padding-left: 18px; }
+  .setup-box li { font-size: 13px; color: var(--dim); margin-bottom: 6px; line-height: 1.5; }
+  .setup-box code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; color: var(--text); }
+
+  /* Student badge */
+  .student-badge {
+    display: none; position: fixed; top: 64px; right: 12px; z-index: 40;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 8px 12px; font-size: 12px;
+  }
+  .student-badge .s-name { font-weight: 700; color: var(--teal); }
+  .student-badge .s-id { color: var(--dim); }
+
+  @media (max-width: 480px) {
+    .score-breakdown { grid-template-columns: 1fr; }
+    .shared-pool { grid-template-columns: repeat(3, 1fr); }
+    .options-6 { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN MODAL ===== -->
+<div id="loginModal">
+  <div class="modal-box">
+    <div class="modal-logo">
+      <div class="badge">HSK 1 · CHUẨN 3.0</div>
+      <h1>Đề Thi Thử</h1>
+      <p>Bài 4 · Bài 5 · Bài 6</p>
+    </div>
+    <div class="exam-note">
+      ⏱️ Thời gian: 40 phút · 40 câu · Nghe (20) + Đọc (20)<br>
+      🔊 Phần Nghe: Nhấn nút phát âm để nghe câu hỏi (TTS)<br>
+      📝 Làm xong tất cả rồi nhấn <strong>Nộp bài</strong>
+    </div>
+    <div class="form-group">
+      <label>HỌ VÀ TÊN</label>
+      <input type="text" id="inputName" placeholder="Nguyễn Văn A" autocomplete="name">
+    </div>
+    <div class="form-group">
+      <label>MÃ HỌC VIÊN</label>
+      <input type="text" id="inputId" placeholder="HV001" autocomplete="off">
+    </div>
+    <button class="btn-start" onclick="startExam()">🚀 Bắt đầu thi</button>
+  </div>
+</div>
+
+<!-- ===== STUDENT BADGE ===== -->
+<div id="studentBadge" class="student-badge">
+  <div class="s-name" id="badgeName">—</div>
+  <div class="s-id" id="badgeId">—</div>
+</div>
+
+<!-- ===== EXAM HEADER ===== -->
+<div id="examHeader" style="display:none">
+  <div class="header-inner">
+    <div class="header-title">HSK 1 · <span>Bài 4–6</span></div>
+    <div id="timerBox" class="timer-box">⏱ <span id="timerDisplay">40:00</span></div>
+    <div class="progress-info">
+      <div id="progressText">0 / 40</div>
+    </div>
+    <button class="btn-settings" onclick="openSheetModal()" title="Cài đặt Google Sheet">⚙️</button>
+  </div>
+  <div class="progress-bar-wrap">
+    <div id="progressBar" class="progress-bar-fill" style="width:0%"></div>
+  </div>
+  <div style="padding:4px 16px 6px;text-align:center">
+    <span id="ttsStatusBadge"></span>
+  </div>
+</div>
+
+<!-- ===== SHEET SETTINGS MODAL ===== -->
+<div id="sheetModal" class="sheet-modal-overlay" style="display:none" onclick="if(event.target===this)closeSheetModal()">
+  <div class="sheet-modal-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h3 style="margin:0;font-size:18px;color:var(--text)">⚙️ Cài đặt Google Sheet</h3>
+      <button onclick="closeSheetModal()" style="background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer;line-height:1">✕</button>
+    </div>
+    <p style="color:var(--dim);font-size:13px;margin:0 0 14px">Dán URL Apps Script của Google Sheet để nhận kết quả bài thi tự động.</p>
+    <input
+      id="sheetUrlInput"
+      class="sheet-url-input"
+      type="url"
+      placeholder="https://script.google.com/macros/s/…/exec"
+      oninput="document.getElementById('sheetSaveBadge').textContent=''"
+    />
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btn-save-sheet" onclick="saveSheetEndpoint()">💾 Lưu URL</button>
+      <button onclick="clearSheetEndpoint()" style="padding:10px 16px;border-radius:8px;border:1.5px solid rgba(255,107,157,0.4);background:rgba(255,107,157,0.08);color:#ff6b9d;font-size:14px;cursor:pointer;">🗑 Xóa</button>
+    </div>
+    <div id="sheetSaveBadge" class="sheet-status-badge" style="margin-top:12px"></div>
+    <details style="margin-top:18px">
+      <summary style="color:var(--dim);font-size:12px;cursor:pointer">📋 Hướng dẫn lấy URL (click để mở)</summary>
+      <ol style="color:var(--dim);font-size:12px;margin:10px 0 0 16px;line-height:1.8">
+        <li>Mở Google Sheet → <b>Extensions → Apps Script</b></li>
+        <li>Dán script doPost vào, nhấn <b>Deploy → New deployment</b></li>
+        <li>Chọn <i>Execute as: Me</i> và <i>Who has access: Anyone</i></li>
+        <li>Nhấn <b>Deploy</b> → copy URL dạng <code>…/exec</code></li>
+        <li>Dán URL đó vào ô bên trên và nhấn Lưu</li>
+      </ol>
+    </details>
+  </div>
+</div>
+
+<!-- ===== EXAM BODY ===== -->
+<div id="examBody" style="display:none">
+  <!-- Section tabs -->
+  <div class="section-tabs" id="sectionTabs"></div>
+  <!-- Current section content -->
+  <div id="sectionContent"></div>
+</div>
+
+<!-- ===== BOTTOM NAV ===== -->
+<div id="bottomNav" style="display:none">
+  <div class="bottom-inner">
+    <button class="btn-nav" id="btnPrev" onclick="changeSection(-1)">◀ Trước</button>
+    <div style="flex:2;text-align:center">
+      <div id="sectionLabel" style="font-size:13px;font-weight:700;color:var(--dim)">Phần 1/8</div>
+      <div class="answered-count" id="answeredCount">0/5 câu đã trả lời</div>
+    </div>
+    <button class="btn-nav" id="btnNext" onclick="changeSection(1)">Tiếp ▶</button>
+  </div>
+  <div style="max-width:800px;margin:8px auto 0;padding:0 0">
+    <button class="btn-submit" id="btnSubmit" onclick="confirmSubmit()" style="width:100%">📤 Nộp bài (Kết thúc thi)</button>
+  </div>
+</div>
+
+<!-- ===== RESULT SCREEN ===== -->
+<div id="resultScreen">
+  <div class="result-inner">
+    <div class="result-hero">
+      <div class="result-emoji" id="resultEmoji">🎉</div>
+      <div class="result-msg" id="resultMsg">Xuất sắc!</div>
+      <div class="result-sub" id="resultSub">Bạn đã hoàn thành đề thi thử HSK 1</div>
+    </div>
+    <div class="score-breakdown">
+      <div class="score-item">
+        <div class="s-label">TỔNG ĐIỂM</div>
+        <div class="s-val" id="scoreTotal">—</div>
+        <div class="s-total">/ 100</div>
+      </div>
+      <div class="score-item">
+        <div class="s-label">SỐ CÂU ĐÚNG</div>
+        <div class="s-val" id="scoreCorrect">—</div>
+        <div class="s-total">/ 40</div>
+      </div>
+      <div class="score-item">
+        <div class="s-label">NGHE</div>
+        <div class="s-val" id="scoreListening">—</div>
+        <div class="s-total">/ 20</div>
+      </div>
+      <div class="score-item">
+        <div class="s-label">ĐỌC</div>
+        <div class="s-val" id="scoreReading">—</div>
+        <div class="s-total">/ 20</div>
+      </div>
+    </div>
+    <div class="answer-review">
+      <div class="review-title">CHI TIẾT ĐÁP ÁN</div>
+      <div class="answer-grid" id="answerGrid"></div>
+    </div>
+    <div class="submit-box">
+      <h3>📤 Gửi kết quả lên Google Sheet</h3>
+      <div id="submitStatus" class="submit-status warn">
+        ⚙️ Giáo viên chưa cài đặt Sheet Endpoint. Xem hướng dẫn bên dưới.
+      </div>
+      <button class="btn-submit-sheet" onclick="submitToSheet()">📊 Gửi kết quả lên Sheet</button>
+      <button class="btn-retry" onclick="retryExam()">🔄 Làm lại</button>
+      <div class="setup-box" id="setupGuide" style="display:none">
+        <h4>⚙️ Hướng dẫn cài đặt Google Sheet (làm 1 lần)</h4>
+        <ol>
+          <li>Mở sheet: <a href="https://docs.google.com/spreadsheets/d/1jaPc_gBNkoTa8GKyb-IKHBtDcUFTc-oD02se7UBSsWc/edit" target="_blank" style="color:var(--gold)">Mở Google Sheet →</a></li>
+          <li>Vào <strong>Extensions → Apps Script</strong></li>
+          <li>Xóa code cũ, dán code bên dưới vào:</li>
+          <li>Nhấn <code>Deploy → New deployment → Web app</code></li>
+          <li>Chọn <em>Execute as: Me</em> và <em>Who has access: Anyone</em></li>
+          <li>Copy URL endpoint → Dán vào biến <code>SHEET_ENDPOINT</code> trong file HTML</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURATION
+// ============================================================
+let SHEET_ENDPOINT = localStorage.getItem('hsk_sheet_endpoint') || null;
+// URL được lưu qua nút ⚙️ Settings góc trên bên phải — không cần chỉnh file này.
+
+// ============================================================
+// EXAM DATA
+// ============================================================
+
+// ---------- 听力 P1: Nghe câu → chọn 1 trong 3 emoji ----------
+const L1 = {
+  id: 'l1', skill: 'listening', part: 1, title: '听力 第一部分',
+  titleVi: 'Nghe • Phần 1',
+  instruction: 'Nghe từng câu và chọn hình ảnh phù hợp. Nhấn 🔊 để nghe.',
+  type: 'listen-3emoji',
+  questions: [
+    { id:1, audio:'妈妈很漂亮。', audioHint:'māma hěn piàoliang',
+      opts:[
+        {l:'A',e:'👩',d:'phụ nữ', photoUrl:'https://images.pexels.com/photos/4350178/pexels-photo-4350178.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+        {l:'B',e:'📚',d:'sách', photoUrl:'https://images.unsplash.com/photo-1692742593559-8ffd0e3fd8b1?auto=format&fit=crop&w=400&h=300&q=80'},
+        {l:'C',e:'🍎',d:'táo', photoUrl:'https://images.unsplash.com/photo-1669295418566-f9833417f330?auto=format&fit=crop&w=400&h=300&q=80'}
+      ], ans:'A' },
+    { id:2, audio:'我有两个孩子。', audioHint:'wǒ yǒu liǎng gè háizi',
+      opts:[
+        {l:'A',e:'🐱',d:'mèo', photoUrl:'https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+        {l:'B',e:'🌸',d:'hoa', photoUrl:'https://images.unsplash.com/photo-1775811662411-3237c7f5fa78?auto=format&fit=crop&w=400&h=300&q=80'},
+        {l:'C',e:'👧',d:'con nhỏ', photoUrl:'https://images.pexels.com/photos/7978258/pexels-photo-7978258.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'}
+      ], ans:'C' },
+    { id:3, audio:'现在是下午三点。', audioHint:'xiànzài shì xiàwǔ sān diǎn',
+      opts:[
+        {l:'A',e:'🌙',d:'đêm', photoUrl:'https://images.unsplash.com/photo-1774923309787-d94a3eecd317?auto=format&fit=crop&w=400&h=300&q=80'},
+        {l:'B',e:'🕒',d:'đồng hồ', photoUrl:'https://images.unsplash.com/photo-1616198814651-e71f960c3180?auto=format&fit=crop&w=400&h=300&q=80'},
+        {l:'C',e:'🌞',d:'ban sáng', photoUrl:'https://images.pexels.com/photos/4916306/pexels-photo-4916306.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'}
+      ], ans:'B' },
+    { id:4, audio:'爸爸在医院工作。', audioHint:'bàba zài yīyuàn gōngzuò',
+      opts:[
+        {l:'A',e:'🏫',d:'trường học', photoUrl:'https://images.pexels.com/photos/8926635/pexels-photo-8926635.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+        {l:'B',e:'🏠',d:'nhà', photoUrl:'https://images.pexels.com/photos/7578862/pexels-photo-7578862.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+        {l:'C',e:'🏥',d:'bệnh viện', photoUrl:'https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'}
+      ], ans:'C' },
+    { id:5, audio:'我今天去学校。', audioHint:'wǒ jīntiān qù xuéxiào',
+      opts:[
+        {l:'A',e:'🏫',d:'trường học', photoUrl:'https://images.pexels.com/photos/8926635/pexels-photo-8926635.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+        {l:'B',e:'🍕',d:'thức ăn', photoUrl:'https://images.pexels.com/photos/2762942/pexels-photo-2762942.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+        {l:'C',e:'🚗',d:'xe hơi', photoUrl:'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=400&h=300&q=80'}
+      ], ans:'A' },
+  ]
+};
+
+// ---------- 听力 P2: Nghe câu hỏi → chọn 1 trong 3 text ----------
+const L2 = {
+  id: 'l2', skill: 'listening', part: 2, title: '听力 第二部分',
+  titleVi: 'Nghe • Phần 2',
+  instruction: 'Nghe câu hỏi và chọn câu trả lời đúng nhất. Nhấn 🔊 để nghe.',
+  type: 'listen-3text',
+  questions: [
+    { id:6, audio:'你有哥哥吗？', audioHint:'nǐ yǒu gēge ma?',
+      opts:[
+        {l:'A', zh:'有，我有一个哥哥。', py:'Yǒu, wǒ yǒu yīgè gēge.'},
+        {l:'B', zh:'好的，谢谢。', py:'Hǎo de, xièxie.'},
+        {l:'C', zh:'我很好。', py:'Wǒ hěn hǎo.'},
+      ], ans:'A' },
+    { id:7, audio:'现在几点？', audioHint:'xiànzài jǐ diǎn?',
+      opts:[
+        {l:'A', zh:'今天星期三。', py:'Jīntiān xīngqīsān.'},
+        {l:'B', zh:'现在下午两点。', py:'Xiànzài xiàwǔ liǎng diǎn.'},
+        {l:'C', zh:'我叫小明。', py:'Wǒ jiào Xiǎomíng.'},
+      ], ans:'B' },
+    { id:8, audio:'你在哪儿工作？', audioHint:'nǐ zài nǎr gōngzuò?',
+      opts:[
+        {l:'A', zh:'我在医院工作。', py:'Wǒ zài yīyuàn gōngzuò.'},
+        {l:'B', zh:'我有两个孩子。', py:'Wǒ yǒu liǎng gè háizi.'},
+        {l:'C', zh:'我是学生。', py:'Wǒ shì xuésheng.'},
+      ], ans:'A' },
+    { id:9, audio:'今天星期几？', audioHint:'jīntiān xīngqī jǐ?',
+      opts:[
+        {l:'A', zh:'今天很热。', py:'Jīntiān hěn rè.'},
+        {l:'B', zh:'今天下午。', py:'Jīntiān xiàwǔ.'},
+        {l:'C', zh:'今天星期四。', py:'Jīntiān xīngqīsì.'},
+      ], ans:'C' },
+    { id:10, audio:'你妈妈是老师吗？', audioHint:'nǐ māma shì lǎoshī ma?',
+      opts:[
+        {l:'A', zh:'不是，她是医生。', py:'Bù shì, tā shì yīshēng.'},
+        {l:'B', zh:'我爸爸很好。', py:'Wǒ bàba hěn hǎo.'},
+        {l:'C', zh:'她很漂亮。', py:'Tā hěn piàoliang.'},
+      ], ans:'A' },
+  ]
+};
+
+// ---------- 听力 P3: Nghe hội thoại → chọn 1 trong 6 emoji (shared pool) ----------
+const L3 = {
+  id: 'l3', skill: 'listening', part: 3, title: '听力 第三部分',
+  titleVi: 'Nghe • Phần 3',
+  instruction: 'Nghe hội thoại và chọn hình ảnh đúng từ bảng A–F. Nhấn 🔊 để nghe.',
+  type: 'listen-6emoji',
+  sharedPool: [
+    {l:'A', e:'🏥', d:'bệnh viện', photoUrl:'https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+    {l:'B', e:'📚', d:'sách/học tập', photoUrl:'https://images.unsplash.com/photo-1692742593559-8ffd0e3fd8b1?auto=format&fit=crop&w=400&h=300&q=80'},
+    {l:'C', e:'👨‍👩‍👧', d:'gia đình', photoUrl:'https://images.pexels.com/photos/7743569/pexels-photo-7743569.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+    {l:'D', e:'🕒', d:'giờ/thời gian', photoUrl:'https://images.unsplash.com/photo-1616198814651-e71f960c3180?auto=format&fit=crop&w=400&h=300&q=80'},
+    {l:'E', e:'👩‍🏫', d:'giáo viên', photoUrl:'https://images.unsplash.com/photo-1758270705031-ebd46917a454?auto=format&fit=crop&w=400&h=300&q=80'},
+    {l:'F', e:'🍎', d:'táo (dư)', photoUrl:'https://images.unsplash.com/photo-1669295418566-f9833417f330?auto=format&fit=crop&w=400&h=300&q=80'},
+  ],
+  questions: [
+    { id:11,
+      dialogue:[
+        {role:'女', text:'你爸爸在哪儿工作？', py:'Nǐ bàba zài nǎr gōngzuò?'},
+        {role:'男', text:'他在医院工作，他是医生。', py:'Tā zài yīyuàn gōngzuò, tā shì yīshēng.'},
+      ], ans:'A' },
+    { id:12,
+      dialogue:[
+        {role:'女', text:'你家有几口人？', py:'Nǐ jiā yǒu jǐ kǒu rén?'},
+        {role:'男', text:'我家有四口人，爸爸、妈妈、我和妹妹。', py:'Wǒ jiā yǒu sì kǒu rén, bàba, māma, wǒ hé mèimei.'},
+      ], ans:'C' },
+    { id:13,
+      dialogue:[
+        {role:'女', text:'现在几点了？', py:'Xiànzài jǐ diǎn le?'},
+        {role:'男', text:'现在下午三点半了。', py:'Xiànzài xiàwǔ sān diǎn bàn le.'},
+      ], ans:'D' },
+    { id:14,
+      dialogue:[
+        {role:'女', text:'你妈妈是做什么的？', py:'Nǐ māma shì zuò shénme de?'},
+        {role:'男', text:'她是老师，在学校工作。', py:'Tā shì lǎoshī, zài xuéxiào gōngzuò.'},
+      ], ans:'E' },
+    { id:15,
+      dialogue:[
+        {role:'女', text:'你在学什么？', py:'Nǐ zài xué shénme?'},
+        {role:'男', text:'我在学汉语，很有意思！', py:'Wǒ zài xué hànyǔ, hěn yǒu yìsi!'},
+      ], ans:'B' },
+  ]
+};
+
+// ---------- 听力 P4: Nghe đoạn văn → chọn 1 trong 3 text ----------
+const L4 = {
+  id: 'l4', skill: 'listening', part: 4, title: '听力 第四部分',
+  titleVi: 'Nghe • Phần 4',
+  instruction: 'Nghe đoạn văn và câu hỏi, rồi chọn đáp án đúng. Nhấn 🔊 để nghe.',
+  type: 'listen-passage',
+  questions: [
+    { id:16,
+      audio:'我叫王芳，我有一个弟弟，他叫王明。我们都是学生。',
+      audioHint:'Wǒ jiào Wáng Fāng, wǒ yǒu yīgè dìdi, tā jiào Wáng Míng. Wǒmen dōu shì xuésheng.',
+      question:{zh:'王芳有几个弟弟？', py:'Wáng Fāng yǒu jǐ gè dìdi?'},
+      opts:[
+        {l:'A', zh:'一个', py:'yīgè'},
+        {l:'B', zh:'两个', py:'liǎng gè'},
+        {l:'C', zh:'没有', py:'méiyǒu'},
+      ], ans:'A' },
+    { id:17,
+      audio:'现在是上午九点，小明在学校上汉语课。',
+      audioHint:'Xiànzài shì shàngwǔ jiǔ diǎn, Xiǎomíng zài xuéxiào shàng hànyǔ kè.',
+      question:{zh:'小明在哪儿？', py:'Xiǎomíng zài nǎr?'},
+      opts:[
+        {l:'A', zh:'医院', py:'yīyuàn'},
+        {l:'B', zh:'家里', py:'jiā lǐ'},
+        {l:'C', zh:'学校', py:'xuéxiào'},
+      ], ans:'C' },
+    { id:18,
+      audio:'我爸爸在医院工作，他是医生。我妈妈在学校工作，她是老师。',
+      audioHint:'Wǒ bàba zài yīyuàn gōngzuò, tā shì yīshēng. Wǒ māma zài xuéxiào gōngzuò, tā shì lǎoshī.',
+      question:{zh:'说话人的妈妈做什么工作？', py:'Shuōhuàrén de māma zuò shénme gōngzuò?'},
+      opts:[
+        {l:'A', zh:'医生', py:'yīshēng'},
+        {l:'B', zh:'老师', py:'lǎoshī'},
+        {l:'C', zh:'学生', py:'xuésheng'},
+      ], ans:'B' },
+    { id:19,
+      audio:'今天是星期三，我有三节课。下午两点，我去图书馆学习。',
+      audioHint:'Jīntiān shì xīngqīsān, wǒ yǒu sān jié kè. Xiàwǔ liǎng diǎn, wǒ qù túshūguǎn xuéxí.',
+      question:{zh:'说话人下午去哪儿？', py:'Shuōhuàrén xiàwǔ qù nǎr?'},
+      opts:[
+        {l:'A', zh:'医院', py:'yīyuàn'},
+        {l:'B', zh:'图书馆', py:'túshūguǎn'},
+        {l:'C', zh:'超市', py:'chāoshì'},
+      ], ans:'B' },
+    { id:20,
+      audio:'我家有四口人：爸爸、妈妈、我和妹妹。我妹妹今年八岁。',
+      audioHint:'Wǒ jiā yǒu sì kǒu rén: bàba, māma, wǒ hé mèimei. Wǒ mèimei jīnnián bā suì.',
+      question:{zh:'说话人家有几口人？', py:'Shuōhuàrén jiā yǒu jǐ kǒu rén?'},
+      opts:[
+        {l:'A', zh:'三口', py:'sān kǒu'},
+        {l:'B', zh:'五口', py:'wǔ kǒu'},
+        {l:'C', zh:'四口', py:'sì kǒu'},
+      ], ans:'C' },
+  ]
+};
+
+// ---------- 阅读 P1: Đọc câu Hán+Pinyin → chọn 1 trong 6 emoji ----------
+const R1 = {
+  id: 'r1', skill: 'reading', part: 1, title: '阅读 第一部分',
+  titleVi: 'Đọc • Phần 1',
+  instruction: 'Đọc câu và chọn hình ảnh phù hợp từ bảng A–F.',
+  type: 'read-6emoji',
+  sharedPool: [
+    {l:'A', e:'👨‍👩‍👧‍👦', d:'gia đình', photoUrl:'https://images.pexels.com/photos/7743569/pexels-photo-7743569.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+    {l:'B', e:'👩‍🏫', d:'giáo viên', photoUrl:'https://images.unsplash.com/photo-1758270705031-ebd46917a454?auto=format&fit=crop&w=400&h=300&q=80'},
+    {l:'C', e:'🕒', d:'đồng hồ', photoUrl:'https://images.unsplash.com/photo-1616198814651-e71f960c3180?auto=format&fit=crop&w=400&h=300&q=80'},
+    {l:'D', e:'🏥', d:'bệnh viện', photoUrl:'https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+    {l:'E', e:'📖', d:'học tập', photoUrl:'https://images.pexels.com/photos/9158778/pexels-photo-9158778.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop'},
+    {l:'F', e:'🍎', d:'táo (dư)', photoUrl:'https://images.unsplash.com/photo-1669295418566-f9833417f330?auto=format&fit=crop&w=400&h=300&q=80'},
+  ],
+  questions: [
+    { id:21, py:'Wǒ jiā yǒu sì kǒu rén.', zh:'我家有四口人。', ans:'A' },
+    { id:22, py:'Wǒ māma shì lǎoshī.', zh:'我妈妈是老师。', ans:'B' },
+    { id:23, py:'Xiànzài shì xiàwǔ liǎng diǎn.', zh:'现在是下午两点。', ans:'C' },
+    { id:24, py:'Wǒ bàba zài yīyuàn gōngzuò.', zh:'我爸爸在医院工作。', ans:'D' },
+    { id:25, py:'Wǒ zài xuéxí hànyǔ.', zh:'我在学习汉语。', ans:'E' },
+  ]
+};
+
+// ---------- 阅读 P2: Ghép câu hỏi với câu trả lời ----------
+const R2 = {
+  id: 'r2', skill: 'reading', part: 2, title: '阅读 第二部分',
+  titleVi: 'Đọc • Phần 2',
+  instruction: 'Ghép mỗi câu hỏi (26–30) với câu trả lời phù hợp (A–F). Có một đáp án không dùng.',
+  type: 'read-matching',
+  answers: [
+    {l:'A', zh:'我去学校上课。', py:'Wǒ qù xuéxiào shàng kè.'},
+    {l:'B', zh:'没有，我没有哥哥。', py:'Méiyǒu, wǒ méiyǒu gēge.'},
+    {l:'C', zh:'她是医生，在医院工作。', py:'Tā shì yīshēng, zài yīyuàn gōngzuò.'},
+    {l:'D', zh:'现在下午三点半。', py:'Xiànzài xiàwǔ sān diǎn bàn.'},
+    {l:'E', zh:'我家有三口人。', py:'Wǒ jiā yǒu sān kǒu rén.'},
+    {l:'F', zh:'我今天很高兴。', py:'Wǒ jīntiān hěn gāoxìng.'},
+  ],
+  questions: [
+    { id:26, zh:'你家有几口人？', py:'Nǐ jiā yǒu jǐ kǒu rén?', ans:'E' },
+    { id:27, zh:'你妈妈是做什么的？', py:'Nǐ māma shì zuò shénme de?', ans:'C' },
+    { id:28, zh:'现在几点了？', py:'Xiànzài jǐ diǎn le?', ans:'D' },
+    { id:29, zh:'你今天去哪儿？', py:'Nǐ jīntiān qù nǎr?', ans:'A' },
+    { id:30, zh:'你有哥哥吗？', py:'Nǐ yǒu gēge ma?', ans:'B' },
+  ]
+};
+
+// ---------- 阅读 P3: Điền từ vào chỗ trống ----------
+const R3 = {
+  id: 'r3', skill: 'reading', part: 3, title: '阅读 第三部分',
+  titleVi: 'Đọc • Phần 3',
+  instruction: 'Chọn từ trong ô để điền vào chỗ trống. D là từ mẫu (đã điền sẵn).',
+  type: 'read-fillin',
+  wordBank: [
+    {l:'A', zh:'有', py:'yǒu'},
+    {l:'B', zh:'是', py:'shì'},
+    {l:'C', zh:'几点', py:'jǐ diǎn'},
+    {l:'D', zh:'叫', py:'jiào', sample:true},
+    {l:'E', zh:'在', py:'zài'},
+    {l:'F', zh:'老师', py:'lǎoshī'},
+  ],
+  sampleQ: { py:'Nǐ (D叫) shénme míngzi?', zh:'你 (D叫) 什么 名字？' },
+  questions: [
+    { id:31, py:'Wǒ māma (_) yīshēng.', zh:'我妈妈（___）医生。', ans:'B', ansZh:'是', ansPy:'shì' },
+    { id:32, py:'Xiànzài (_)?', zh:'现在（___）？', ans:'C', ansZh:'几点', ansPy:'jǐ diǎn' },
+    { id:33, py:'Nǐ (_) gēge ma?', zh:'你（___）哥哥吗？', ans:'A', ansZh:'有', ansPy:'yǒu' },
+    { id:34, py:'Wǒ bàba (_) yīyuàn gōngzuò.', zh:'我爸爸（___）医院工作。', ans:'E', ansZh:'在', ansPy:'zài' },
+    { id:35, py:'Wǒ jiějie shì (_).', zh:'我姐姐是（___）。', ans:'F', ansZh:'老师', ansPy:'lǎoshī' },
+  ]
+};
+
+// ---------- 阅读 P4: Đọc đoạn văn + ★ câu hỏi → 3 text ----------
+const R4 = {
+  id: 'r4', skill: 'reading', part: 4, title: '阅读 第四部分',
+  titleVi: 'Đọc • Phần 4',
+  instruction: 'Đọc đoạn văn rồi trả lời câu hỏi ★.',
+  type: 'read-passage',
+  questions: [
+    { id:36,
+      py:'Wǒ jiā yǒu sì kǒu rén, yǒu bàba, māma, gēge hé wǒ.',
+      zh:'我家有四口人，有爸爸、妈妈、哥哥和我。',
+      qPy:'Shuōhuàrén jiā yǒu jǐ kǒu rén?', qZh:'说话人家有几口人？',
+      opts:[{l:'A',zh:'三口',py:'sān kǒu'},{l:'B',zh:'四口',py:'sì kǒu'},{l:'C',zh:'五口',py:'wǔ kǒu'}],
+      ans:'B' },
+    { id:37,
+      py:'Xiànzài shì xiàwǔ liǎng diǎn, wǒ zài xuéxiào xuéxí hànyǔ.',
+      zh:'现在是下午两点，我在学校学习汉语。',
+      qPy:'Shuōhuàrén xiànzài zài nǎr?', qZh:'说话人现在在哪儿？',
+      opts:[{l:'A',zh:'医院',py:'yīyuàn'},{l:'B',zh:'家里',py:'jiā lǐ'},{l:'C',zh:'学校',py:'xuéxiào'}],
+      ans:'C' },
+    { id:38,
+      py:'Wǒ māma shì lǎoshī, tā zài xuéxiào gōngzuò. Wǒ yě shì xuésheng.',
+      zh:'我妈妈是老师，她在学校工作。我也是学生。',
+      qPy:'Shuōhuàrén de māma shì shénme?', qZh:'说话人的妈妈是什么？',
+      opts:[{l:'A',zh:'学生',py:'xuésheng'},{l:'B',zh:'老师',py:'lǎoshī'},{l:'C',zh:'医生',py:'yīshēng'}],
+      ans:'B' },
+    { id:39,
+      py:'Jīntiān shì xīngqīwǔ, wǒ méiyǒu kè, wǒ xiǎng qù kàn māma. Māma zài yīyuàn gōngzuò.',
+      zh:'今天是星期五，我没有课，我想去看妈妈。妈妈在医院工作。',
+      qPy:'Jīntiān shuōhuàrén yǒu kè ma?', qZh:'今天说话人有课吗？',
+      opts:[{l:'A',zh:'有一节课',py:'yǒu yī jié kè'},{l:'B',zh:'有两节课',py:'yǒu liǎng jié kè'},{l:'C',zh:'没有课',py:'méiyǒu kè'}],
+      ans:'C' },
+    { id:40,
+      py:'Wǒ yǒu yīgè jiějie hé yīgè dìdi. Jiějie shì lǎoshī, dìdi shì xuésheng.',
+      zh:'我有一个姐姐和一个弟弟。姐姐是老师，弟弟是学生。',
+      qPy:'Shuōhuàrén de dìdi shì shénme?', qZh:'说话人的弟弟是什么？',
+      opts:[{l:'A',zh:'老师',py:'lǎoshī'},{l:'B',zh:'医生',py:'yīshēng'},{l:'C',zh:'学生',py:'xuésheng'}],
+      ans:'C' },
+  ]
+};
+
+const SECTIONS = [L1, L2, L3, L4, R1, R2, R3, R4];
+
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+  studentName: '',
+  studentId: '',
+  answers: {}, // { questionId: selectedAnswer }
+  currentSection: 0,
+  timerSeconds: 40 * 60,
+  timerInterval: null,
+  submitted: false,
+  playCounts: {} // { questionId: count }
+};
+
+// Load saved student info
+window.onload = () => {
+  const saved = localStorage.getItem('hsk_student');
+  if (saved) {
+    try {
+      const s = JSON.parse(saved);
+      document.getElementById('inputName').value = s.name || '';
+      document.getElementById('inputId').value = s.id || '';
+    } catch(e) {}
+  }
+};
+
+// ============================================================
+// START EXAM
+// ============================================================
+function startExam() {
+  const name = document.getElementById('inputName').value.trim();
+  const id = document.getElementById('inputId').value.trim();
+  if (!name || !id) { alert('Vui lòng nhập họ tên và mã học viên!'); return; }
+
+  state.studentName = name;
+  state.studentId = id;
+  localStorage.setItem('hsk_student', JSON.stringify({name, id}));
+
+  document.getElementById('loginModal').style.display = 'none';
+  document.getElementById('examHeader').style.display = 'block';
+  document.getElementById('examBody').style.display = 'block';
+  document.getElementById('bottomNav').style.display = 'block';
+  document.getElementById('studentBadge').style.display = 'block';
+  document.getElementById('badgeName').textContent = name;
+  document.getElementById('badgeId').textContent = id;
+
+  buildTabs();
+  renderSection(0);
+  startTimer();
+}
+
+// ============================================================
+// TIMER
+// ============================================================
+function startTimer() {
+  updateTimerDisplay();
+  state.timerInterval = setInterval(() => {
+    state.timerSeconds--;
+    if (state.timerSeconds <= 0) {
+      clearInterval(state.timerInterval);
+      submitExam();
+    }
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(state.timerSeconds / 60);
+  const s = state.timerSeconds % 60;
+  document.getElementById('timerDisplay').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const box = document.getElementById('timerBox');
+  if (state.timerSeconds <= 300) { box.classList.add('warn'); } else { box.classList.remove('warn'); }
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function buildTabs() {
+  const tabs = document.getElementById('sectionTabs');
+  tabs.innerHTML = SECTIONS.map((s, i) => {
+    const cls = i === 0 ? 'tab-btn active' : 'tab-btn';
+    return `<button class="${cls}" id="tab_${i}" onclick="changeSection(${i - state.currentSection})">${s.titleVi}</button>`;
+  }).join('');
+}
+
+function updateTabs() {
+  SECTIONS.forEach((s, i) => {
+    const btn = document.getElementById(`tab_${i}`);
+    if (!btn) return;
+    const sectionAnswered = s.questions.every(q => state.answers[q.id]);
+    btn.className = 'tab-btn' + (i === state.currentSection ? ' active' : '') + (sectionAnswered ? ' done' : '');
+    btn.onclick = () => changeSection(i - state.currentSection);
+  });
+}
+
+// ============================================================
+// SECTION NAVIGATION
+// ============================================================
+function changeSection(delta) {
+  if (typeof delta === 'number' && Math.abs(delta) > 1) {
+    // Direct jump
+    state.currentSection = state.currentSection + delta;
+  } else {
+    state.currentSection += delta;
+  }
+  state.currentSection = Math.max(0, Math.min(7, state.currentSection));
+  renderSection(state.currentSection);
+}
+
+function renderSection(idx) {
+  state.currentSection = idx;
+  const sec = SECTIONS[idx];
+  const content = document.getElementById('sectionContent');
+  content.innerHTML = buildSectionHTML(sec);
+  updateTabs();
+  updateProgress();
+  updateBottomNav();
+  window.scrollTo(0, 0);
+  // Re-attach event listeners after re-render
+  attachListeners(sec);
+  // Kiểm tra ảnh bị mất (lazy/silent fail)
+  fixBrokenImages(content);
+}
+
+function updateBottomNav() {
+  const idx = state.currentSection;
+  document.getElementById('btnPrev').disabled = idx === 0;
+  document.getElementById('btnNext').disabled = idx === 7;
+  document.getElementById('sectionLabel').textContent = `Phần ${idx+1}/8`;
+  const sec = SECTIONS[idx];
+  const answered = sec.questions.filter(q => state.answers[q.id]).length;
+  document.getElementById('answeredCount').textContent = `${answered}/${sec.questions.length} câu đã trả lời`;
+}
+
+function updateProgress() {
+  const total = 40;
+  const done = Object.keys(state.answers).length;
+  document.getElementById('progressText').textContent = `${done} / ${total}`;
+  document.getElementById('progressBar').style.width = `${(done/total)*100}%`;
+}
+
+// ============================================================
+// RENDER SECTION
+// ============================================================
+function buildSectionHTML(sec) {
+  const skillBadge = sec.skill === 'listening'
+    ? '<span class="skill-badge ting">🎧 NGHE · 听力</span>'
+    : '<span class="skill-badge yue">📖 ĐỌC · 阅读</span>';
+
+  let html = `
+    <div class="section-header">
+      ${skillBadge}
+      <h2><span class="zh">${sec.title}</span></h2>
+      <div class="instr">${sec.instruction}</div>
+    </div>`;
+
+  // Shared pool for P3 listening and R1
+  if (sec.type === 'listen-6emoji' || sec.type === 'read-6emoji') {
+    html += buildSharedPool(sec.sharedPool);
+  }
+
+  // Reading P2: show answer pool on top
+  if (sec.type === 'read-matching') {
+    html += buildMatchingAnswerPool(sec.answers);
+  }
+
+  // Reading P3: word bank
+  if (sec.type === 'read-fillin') {
+    html += buildWordBank(sec);
+  }
+
+  // Questions
+  sec.questions.forEach(q => {
+    html += buildQuestionHTML(q, sec);
+  });
+
+  return html;
+}
+
+function buildSharedPool(pool) {
+  return `<div class="shared-pool">` +
+    pool.map(p => `
+      <div class="pool-item">
+        ${p.photoUrl
+          ? `<div class="pool-photo-wrap">
+               <img class="pool-photo" src="${p.photoUrl}" alt="${p.d}"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                    loading="eager">
+               <div class="pool-photo-fallback">${p.e}</div>
+             </div>`
+          : `<div class="pool-photo-wrap" style="display:flex;align-items:center;justify-content:center"><span style="font-size:34px">${p.e}</span></div>`}
+        <span class="pool-label">${p.l}</span>
+      </div>`).join('') +
+  `</div>`;
+}
+
+function buildMatchingAnswerPool(answers) {
+  return `<div class="match-answers-pool">
+    <div class="match-section-title">BẢNG ĐÁP ÁN (A–F)</div>
+    ${answers.map(a => `
+      <div class="match-answer-item">
+        <span class="match-ans-label">${a.l}</span>
+        <div class="match-ans-text">
+          <div class="py">${a.py}</div>
+          <div class="zh">${a.zh}</div>
+        </div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function buildWordBank(sec) {
+  let html = `<div class="word-bank">`;
+  sec.wordBank.forEach(w => {
+    html += `<div class="word-chip ${w.sample?'sample':''}">
+      <div class="chip-label">${w.l}${w.sample?' (mẫu)':''}</div>
+      <div class="chip-zh zh">${w.zh}</div>
+      <div class="chip-py">${w.py}</div>
+    </div>`;
+  });
+  html += `</div>`;
+  html += `<div class="q-card" style="background:rgba(255,209,102,0.06);border-color:rgba(255,209,102,0.2)">
+    <div class="q-num">📌 VÍ DỤ MẪU</div>
+    <div class="fill-sentence">
+      <div class="fill-pinyin">${sec.sampleQ.py}</div>
+      <div class="zh">${sec.sampleQ.zh}</div>
+    </div>
+  </div>`;
+  return html;
+}
+
+function buildQuestionHTML(q, sec) {
+  const isAnswered = !!state.answers[q.id];
+  let html = `<div class="q-card ${isAnswered?'answered':''}" id="qcard_${q.id}">
+    <div class="q-num">Câu <span>${q.id}</span></div>`;
+
+  switch(sec.type) {
+    case 'listen-3emoji': html += buildListen3Emoji(q); break;
+    case 'listen-3text': html += buildListen3Text(q); break;
+    case 'listen-6emoji': html += buildListen6Emoji(q, sec); break;
+    case 'listen-passage': html += buildListenPassage(q); break;
+    case 'read-6emoji': html += buildRead6Emoji(q, sec); break;
+    case 'read-matching': html += buildReadMatching(q, sec); break;
+    case 'read-fillin': html += buildReadFillin(q, sec); break;
+    case 'read-passage': html += buildReadPassage(q); break;
+  }
+
+  html += `</div>`;
+  return html;
+}
+
+// --- Listen 3 emoji ---
+function buildListen3Emoji(q) {
+  const count = state.playCounts[q.id] || 0;
+  return `
+    <div class="audio-area">
+      <button class="btn-play" id="play_${q.id}" onclick="playAudio(${q.id})">
+        🔊 Phát âm
+      </button>
+      <span class="play-count" id="playcount_${q.id}">${count > 0 ? `(đã nghe ${count} lần)` : ''}</span>
+    </div>
+    <div class="options-emoji">
+      ${q.opts.map(o => `
+        <div class="opt-emoji-btn ${state.answers[q.id]===o.l?'selected':''}"
+             onclick="selectAnswer(${q.id},'${o.l}','emoji')">
+          <div class="opt-letter">${o.l}</div>
+          ${o.photoUrl
+            ? `<div class="opt-photo-wrap">
+                 <img class="opt-photo" src="${o.photoUrl}" alt="${o.d}"
+                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                      loading="eager">
+                 <div class="opt-photo-fallback">${o.e}</div>
+               </div>`
+            : `<div class="opt-photo-wrap" style="display:flex;align-items:center;justify-content:center"><span style="font-size:42px">${o.e}</span></div>`}
+        </div>`).join('')}
+    </div>`;
+}
+
+// --- Listen 3 text ---
+function buildListen3Text(q) {
+  const count = state.playCounts[q.id] || 0;
+  return `
+    <div class="audio-area">
+      <button class="btn-play" id="play_${q.id}" onclick="playAudio(${q.id})">
+        🔊 Phát âm
+      </button>
+      <span class="play-count" id="playcount_${q.id}">${count > 0 ? `(đã nghe ${count} lần)` : ''}</span>
+    </div>
+    <div class="options-text">
+      ${q.opts.map(o => `
+        <div class="opt-text-btn ${state.answers[q.id]===o.l?'selected':''}"
+             onclick="selectAnswer(${q.id},'${o.l}','text')">
+          <div class="opt-label">${o.l}</div>
+          <div class="opt-content">
+            <div class="py">${o.py}</div>
+            <div class="zh">${o.zh}</div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// --- Listen 6 emoji (shared pool) ---
+function buildListen6Emoji(q, sec) {
+  const count = state.playCounts[q.id] || 0;
+  return `
+    <div class="audio-area">
+      <button class="btn-play" id="play_${q.id}" onclick="playDialogue(${q.id})">
+        🔊 Phát âm hội thoại
+      </button>
+      <span class="play-count" id="playcount_${q.id}">${count > 0 ? `(đã nghe ${count} lần)` : ''}</span>
+    </div>
+    <div class="options-6">
+      ${sec.sharedPool.map(o => `
+        <div class="opt-6-btn ${state.answers[q.id]===o.l?'selected':''}"
+             onclick="selectAnswer(${q.id},'${o.l}','6emoji')">
+          <div class="opt-letter">${o.l}</div>
+          <span style="font-size:30px">${o.e}</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+// --- Listen passage ---
+function buildListenPassage(q) {
+  const count = state.playCounts[q.id] || 0;
+  return `
+    <div class="audio-area">
+      <button class="btn-play" id="play_${q.id}" onclick="playPassage(${q.id})">
+        🔊 Phát âm đoạn văn
+      </button>
+      <span class="play-count" id="playcount_${q.id}">${count > 0 ? `(đã nghe ${count} lần)` : ''}</span>
+    </div>
+    <div class="question-mark">
+      <span class="q-star">★</span>
+      <div>
+        <div class="py">${q.question.py}</div>
+        <div class="zh">${q.question.zh}</div>
+      </div>
+    </div>
+    <div class="options-text">
+      ${q.opts.map(o => `
+        <div class="opt-text-btn ${state.answers[q.id]===o.l?'selected':''}"
+             onclick="selectAnswer(${q.id},'${o.l}','text')">
+          <div class="opt-label">${o.l}</div>
+          <div class="opt-content">
+            <div class="py">${o.py}</div>
+            <div class="zh">${o.zh}</div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// --- Read 6 emoji ---
+function buildRead6Emoji(q, sec) {
+  return `
+    <div class="passage-box">
+      <div class="pinyin">${q.py}</div>
+      <div class="zh">${q.zh}</div>
+    </div>
+    <div class="options-6">
+      ${sec.sharedPool.map(o => `
+        <div class="opt-6-btn ${state.answers[q.id]===o.l?'selected':''}"
+             onclick="selectAnswer(${q.id},'${o.l}','6emoji')">
+          <div class="opt-letter">${o.l}</div>
+          <span style="font-size:30px">${o.e}</span>
+        </div>`).join('')}
+    </div>`;
+}
+
+// --- Read matching ---
+function buildReadMatching(q, sec) {
+  const cur = state.answers[q.id] || '';
+  return `
+    <div class="match-q-row">
+      <div class="match-q-text">
+        <div class="py">${q.py}</div>
+        <div class="zh">${q.zh}</div>
+      </div>
+      <select class="match-select" onchange="selectAnswer(${q.id},this.value,'match')" id="sel_${q.id}">
+        <option value="">—</option>
+        ${sec.answers.map(a => `<option value="${a.l}" ${cur===a.l?'selected':''}>${a.l}</option>`).join('')}
+      </select>
+    </div>`;
+}
+
+// --- Read fill-in ---
+function buildReadFillin(q, sec) {
+  const cur = state.answers[q.id] || '';
+  return `
+    <div class="fill-sentence">
+      <div class="fill-pinyin">${q.py}</div>
+      <div class="zh" style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+        ${q.zh.replace('（___）', `<select class="fill-select" onchange="selectAnswer(${q.id},this.value,'fill')" id="sel_${q.id}">
+          <option value="">—</option>
+          ${sec.wordBank.filter(w=>!w.sample).map(w => `<option value="${w.l}" ${cur===w.l?'selected':''}>${w.l}: ${w.zh}</option>`).join('')}
+        </select>`)}
+      </div>
+    </div>`;
+}
+
+// --- Read passage ---
+function buildReadPassage(q) {
+  return `
+    <div class="passage-box">
+      <div class="pinyin">${q.py}</div>
+      <div class="zh">${q.zh}</div>
+    </div>
+    <div class="question-mark">
+      <span class="q-star">★</span>
+      <div>
+        <div class="py">${q.qPy}</div>
+        <div class="zh">${q.qZh}</div>
+      </div>
+    </div>
+    <div class="options-text">
+      ${q.opts.map(o => `
+        <div class="opt-text-btn ${state.answers[q.id]===o.l?'selected':''}"
+             onclick="selectAnswer(${q.id},'${o.l}','text')">
+          <div class="opt-label">${o.l}</div>
+          <div class="opt-content">
+            <div class="py">${o.py}</div>
+            <div class="zh">${o.zh}</div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ============================================================
+// ATTACH LISTENERS (re-render workaround)
+// ============================================================
+function attachListeners(sec) {
+  // Already using inline onclick, no extra needed
+}
+
+// ============================================================
+// SELECT ANSWER
+// ============================================================
+function selectAnswer(qId, val, type) {
+  if (state.submitted) return;
+  if (!val) { delete state.answers[qId]; }
+  else { state.answers[qId] = val; }
+
+  // Update UI without full re-render
+  const card = document.getElementById(`qcard_${qId}`);
+  if (card) {
+    if (val) card.classList.add('answered');
+    else card.classList.remove('answered');
+  }
+
+  // For emoji/text buttons, update selected state
+  if (type === 'emoji' || type === 'text' || type === '6emoji') {
+    const sec = SECTIONS[state.currentSection];
+    const q = sec.questions.find(q => q.id === qId);
+    if (!q) return;
+
+    let btnClass;
+    if (type === 'emoji') btnClass = 'opt-emoji-btn';
+    else if (type === 'text') btnClass = 'opt-text-btn';
+    else btnClass = 'opt-6-btn';
+
+    if (card) {
+      card.querySelectorAll(`.${btnClass}`).forEach(btn => btn.classList.remove('selected'));
+      // Find and select the right one
+      card.querySelectorAll(`.${btnClass}`).forEach(btn => {
+        const letter = (btn.querySelector('.opt-letter') || btn.querySelector('.opt-label'))?.textContent?.trim();
+        if (letter === val) btn.classList.add('selected');
+      });
+    }
+  }
+
+  updateProgress();
+  updateBottomNav();
+}
+
+// ============================================================
+// TTS PLAYBACK
+// ============================================================
+const audioData = {};
+[...L1.questions, ...L2.questions].forEach(q => audioData[q.id] = {text: q.audio, type: 'single'});
+L3.questions.forEach(q => audioData[q.id] = {lines: q.dialogue.map(l => l.text), type: 'dialogue'});
+L4.questions.forEach(q => audioData[q.id] = {text: q.audio, type: 'single'});
+
+function playAudio(qId) {
+  const data = audioData[qId];
+  if (!data) return;
+  if (data.type === 'single') speakText(data.text, qId);
+}
+
+function playDialogue(qId) {
+  const data = audioData[qId];
+  if (!data || data.type !== 'dialogue') return;
+  speakLines(data.lines, 0, qId);
+}
+
+function playPassage(qId) {
+  const data = audioData[qId];
+  if (!data) return;
+  speakText(data.text, qId);
+}
+
+// ============================================================
+// TTS ENGINE — Google Translate TTS (primary) + Web Speech (fallback)
+// Không cần cài giọng — chỉ cần có kết nối internet
+// ============================================================
+let _activeAudio = null;
+
+function _ttsUrl(text) {
+  // Google Translate TTS — hoạt động trực tiếp qua thẻ Audio, không cần API key
+  return 'https://translate.googleapis.com/translate_tts?ie=UTF-8'
+    + '&q=' + encodeURIComponent(text)
+    + '&tl=zh-CN&client=tw-ob&ttsspeed=0.8';
+}
+
+function _playAudioUrl(url, onDone, onFail) {
+  if (_activeAudio) { _activeAudio.pause(); _activeAudio.src = ''; _activeAudio = null; }
+  const a = new Audio(url);
+  _activeAudio = a;
+  a.onended  = () => { _activeAudio = null; if (onDone) onDone(); };
+  a.onerror  = () => { _activeAudio = null; if (onFail) onFail(); };
+  const p = a.play();
+  if (p && p.catch) p.catch(() => { _activeAudio = null; if (onFail) onFail(); });
+}
+
+function _webSpeechFallback(text, onDone) {
+  // Fallback khi Google TTS thất bại (offline / bị chặn)
+  if (!window.speechSynthesis) { if (onDone) onDone(); return; }
+  if (window.speechSynthesis.speaking || window.speechSynthesis.pending)
+    window.speechSynthesis.cancel();
+  window.speechSynthesis.resume();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang  = 'zh-CN';
+  utt.rate  = 0.85;
+  utt.pitch = 1;
+  const v = getBestZhVoice();
+  if (v) utt.voice = v;
+  utt.onend  = () => { if (onDone) onDone(); };
+  utt.onerror = () => { if (onDone) onDone(); };
+  setTimeout(() => { window.speechSynthesis.resume(); window.speechSynthesis.speak(utt); }, 120);
+}
+
+function _afterPlay(qId, btn) {
+  if (btn) btn.classList.remove('playing');
+  state.playCounts[qId] = (state.playCounts[qId] || 0) + 1;
+  const cnt = document.getElementById(`playcount_${qId}`);
+  if (cnt) cnt.textContent = `(đã nghe ${state.playCounts[qId]} lần)`;
+}
+
+function speakText(text, qId) {
+  const btn = document.getElementById(`play_${qId}`);
+  if (btn) btn.classList.add('playing');
+  const done = () => _afterPlay(qId, btn);
+  _playAudioUrl(_ttsUrl(text), done, () => _webSpeechFallback(text, done));
+}
+
+function speakLines(lines, idx, qId) {
+  if (idx >= lines.length) { _afterPlay(qId, document.getElementById(`play_${qId}`)); return; }
+  const btn = document.getElementById(`play_${qId}`);
+  if (btn) btn.classList.add('playing');
+  const next = () => setTimeout(() => speakLines(lines, idx + 1, qId), 500);
+  _playAudioUrl(_ttsUrl(lines[idx]), next, () => _webSpeechFallback(lines[idx], next));
+}
+
+// ---- Kiểm tra và sửa ảnh bị mất thầm lặng ----
+function fixBrokenImages(container) {
+  if (!container) return;
+  container.querySelectorAll('img.opt-photo, img.pool-photo').forEach(img => {
+    const showFallback = () => {
+      img.style.display = 'none';
+      const fb = img.nextElementSibling;
+      if (fb) fb.style.display = 'flex';
+    };
+    // Đã load xong nhưng lỗi (naturalWidth = 0)
+    if (img.complete && img.naturalWidth === 0) { showFallback(); return; }
+    // Timeout 5s nếu chưa load
+    if (!img.complete) {
+      const tid = setTimeout(() => {
+        if (!img.complete || img.naturalWidth === 0) showFallback();
+      }, 5000);
+      img.addEventListener('load', () => clearTimeout(tid), { once: true });
+      img.addEventListener('error', () => { clearTimeout(tid); showFallback(); }, { once: true });
+    }
+  });
+}
+
+// ---- Hàm chọn giọng tiếng Trung chất lượng cao ----
+function getBestZhVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  // Ưu tiên theo thứ tự: giọng tự nhiên Microsoft/Google zh-CN trước
+  const priority = [
+    v => v.name.includes('Xiaoxiao'),       // Microsoft Xiaoxiao (tự nhiên nhất)
+    v => v.name.includes('Yunxi'),          // Microsoft Yunxi (nam, tự nhiên)
+    v => v.name.includes('Xiaoyi'),         // Microsoft Xiaoyi
+    v => v.name.includes('Yunyang'),        // Microsoft Yunyang
+    v => v.name === 'Google 普通话（中国大陆）',
+    v => v.name.includes('Google') && v.lang === 'zh-CN',
+    v => v.lang === 'zh-CN',               // Bất kỳ zh-CN nào
+    v => v.lang.startsWith('zh'),          // Bất kỳ zh nào
+  ];
+  for (const test of priority) {
+    const found = voices.find(test);
+    if (found) return found;
+  }
+  return null;
+}
+
+// Badge: hiển thị trạng thái TTS engine
+const _ttsBadge = document.getElementById('ttsStatusBadge');
+if (_ttsBadge) {
+  _ttsBadge.textContent = '🔊 Âm thanh: Google TTS (cần internet)';
+  _ttsBadge.style.cssText = 'color:var(--teal);font-size:12px;padding:4px 10px;background:rgba(0,230,180,0.1);border-radius:8px;display:inline-block';
+}
+
+// ============================================================
+// SHEET SETTINGS MODAL
+// ============================================================
+function openSheetModal() {
+  const input = document.getElementById('sheetUrlInput');
+  if (input) input.value = SHEET_ENDPOINT || '';
+  document.getElementById('sheetSaveBadge').textContent = SHEET_ENDPOINT
+    ? '✅ Đang dùng: ' + SHEET_ENDPOINT.slice(0, 48) + '…'
+    : '';
+  document.getElementById('sheetModal').style.display = 'flex';
+}
+
+function closeSheetModal() {
+  document.getElementById('sheetModal').style.display = 'none';
+}
+
+function saveSheetEndpoint() {
+  const url = document.getElementById('sheetUrlInput').value.trim();
+  const badge = document.getElementById('sheetSaveBadge');
+  if (!url) {
+    badge.textContent = '⚠️ Vui lòng nhập URL trước.';
+    badge.style.color = '#ffd166';
+    return;
+  }
+  if (!url.startsWith('https://script.google.com/')) {
+    badge.textContent = '❌ URL không đúng định dạng Apps Script.';
+    badge.style.color = '#ff6b9d';
+    return;
+  }
+  SHEET_ENDPOINT = url;
+  localStorage.setItem('hsk_sheet_endpoint', url);
+  badge.textContent = '✅ Đã lưu! Kết quả sẽ gửi vào Sheet này.';
+  badge.style.color = 'var(--teal)';
+}
+
+function clearSheetEndpoint() {
+  SHEET_ENDPOINT = null;
+  localStorage.removeItem('hsk_sheet_endpoint');
+  document.getElementById('sheetUrlInput').value = '';
+  const badge = document.getElementById('sheetSaveBadge');
+  badge.textContent = '🗑 Đã xóa URL.';
+  badge.style.color = 'var(--dim)';
+}
+
+// ============================================================
+// SUBMIT
+// ============================================================
+function confirmSubmit() {
+  const done = Object.keys(state.answers).length;
+  const remaining = 40 - done;
+  if (remaining > 0) {
+    if (!confirm(`Bạn còn ${remaining} câu chưa trả lời. Vẫn nộp bài?`)) return;
+  }
+  submitExam();
+}
+
+function submitExam() {
+  if (state.submitted) return;
+  state.submitted = true;
+  clearInterval(state.timerInterval);
+  window.speechSynthesis && window.speechSynthesis.cancel();
+
+  showResults();
+}
+
+function showResults() {
+  document.getElementById('examBody').style.display = 'none';
+  document.getElementById('bottomNav').style.display = 'none';
+  document.getElementById('examHeader').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'block';
+
+  // Calculate scores
+  const allAnswers = {
+    // L1
+    1:'A', 2:'C', 3:'B', 4:'C', 5:'A',
+    // L2
+    6:'A', 7:'B', 8:'A', 9:'C', 10:'A',
+    // L3
+    11:'A', 12:'C', 13:'D', 14:'E', 15:'B',
+    // L4
+    16:'A', 17:'C', 18:'B', 19:'B', 20:'C',
+    // R1
+    21:'A', 22:'B', 23:'C', 24:'D', 25:'E',
+    // R2
+    26:'E', 27:'C', 28:'D', 29:'A', 30:'B',
+    // R3
+    31:'B', 32:'C', 33:'A', 34:'E', 35:'F',
+    // R4
+    36:'B', 37:'C', 38:'B', 39:'C', 40:'C',
+  };
+
+  let listeningCorrect = 0, readingCorrect = 0;
+  for (let i = 1; i <= 20; i++) if (state.answers[i] === allAnswers[i]) listeningCorrect++;
+  for (let i = 21; i <= 40; i++) if (state.answers[i] === allAnswers[i]) readingCorrect++;
+  const totalCorrect = listeningCorrect + readingCorrect;
+  const score = Math.round((totalCorrect / 40) * 100);
+
+  document.getElementById('scoreTotal').textContent = score;
+  document.getElementById('scoreCorrect').textContent = totalCorrect;
+  document.getElementById('scoreListening').textContent = listeningCorrect;
+  document.getElementById('scoreReading').textContent = readingCorrect;
+
+  // Result message
+  let emoji, msg, sub;
+  if (score >= 80) { emoji='🎉'; msg='Xuất sắc! Em học rất tốt!'; sub='Kết quả vượt ngưỡng đạt HSK 1 (≥ 60%)'; }
+  else if (score >= 60) { emoji='💪'; msg='Đạt! Cố gắng thêm nhé!'; sub='Đạt mức yêu cầu HSK 1 — tiếp tục ôn luyện'; }
+  else { emoji='📚'; msg='Chưa đạt — Cố lên!'; sub='Ôn tập lại bài 4, 5, 6 và thử lại nhé!'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultMsg').textContent = msg;
+  document.getElementById('resultSub').textContent = sub;
+
+  // Answer grid
+  const grid = document.getElementById('answerGrid');
+  let gridHtml = '';
+  for (let i = 1; i <= 40; i++) {
+    const user = state.answers[i];
+    const correct = allAnswers[i];
+    const cls = !user ? 'empty' : (user === correct ? 'correct' : 'wrong');
+    const display = !user ? '—' : (user === correct ? '✓' + user : '✗' + user);
+    gridHtml += `<div class="answer-cell ${cls}"><div class="q-n">${i}</div>${display}</div>`;
+  }
+  grid.innerHTML = gridHtml;
+
+  // Sheet endpoint
+  if (!SHEET_ENDPOINT) {
+    document.getElementById('submitStatus').className = 'submit-status warn';
+    document.getElementById('submitStatus').innerHTML = '⚙️ Chưa cài đặt Sheet Endpoint. Nhấn để xem hướng dẫn.';
+    document.getElementById('submitStatus').onclick = () => {
+      const g = document.getElementById('setupGuide');
+      g.style.display = g.style.display === 'none' ? 'block' : 'none';
+    };
+    document.getElementById('setupGuide').style.display = 'none';
+  }
+
+  // Store results in sessionStorage for submission
+  sessionStorage.setItem('hsk_result', JSON.stringify({
+    studentName: state.studentName,
+    studentId: state.studentId,
+    score, totalCorrect, listeningCorrect, readingCorrect,
+    answers: state.answers,
+    correctAnswers: allAnswers,
+    submittedAt: new Date().toISOString()
+  }));
+}
+
+// ============================================================
+// SUBMIT TO GOOGLE SHEET
+// ============================================================
+function submitToSheet() {
+  if (!SHEET_ENDPOINT) {
+    document.getElementById('setupGuide').style.display = 'block';
+    document.getElementById('submitStatus').className = 'submit-status warn';
+    document.getElementById('submitStatus').innerHTML = '⚙️ Cần cài đặt Sheet Endpoint trước. Xem hướng dẫn bên dưới ↓';
+    return;
+  }
+
+  const result = JSON.parse(sessionStorage.getItem('hsk_result') || '{}');
+  const allAnswers = result.correctAnswers || {};
+
+  // Build answer detail
+  const answerDetail = Object.entries(result.answers || {}).map(([qId, ans]) => {
+    const correct = allAnswers[qId];
+    return `${qId}:${ans}(${ans===correct?'✓':'✗'})`;
+  }).join(', ');
+
+  const payload = {
+    studentName: result.studentName,
+    studentId: result.studentId,
+    examName: 'HSK1 Bài 4-5-6 Mock Test',
+    score: result.score,
+    totalCorrect: result.totalCorrect,
+    listeningScore: result.listeningCorrect,
+    readingScore: result.readingCorrect,
+    answerDetail,
+    submittedAt: result.submittedAt || new Date().toISOString(),
+    examDate: new Date().toLocaleDateString('vi-VN')
+  };
+
+  document.getElementById('submitStatus').className = 'submit-status';
+  document.getElementById('submitStatus').innerHTML = '⏳ Đang gửi kết quả...';
+
+  fetch(SHEET_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    document.getElementById('submitStatus').className = 'submit-status ok';
+    document.getElementById('submitStatus').innerHTML = `✅ Đã gửi kết quả của <strong>${result.studentName}</strong> lên Google Sheet!`;
+  })
+  .catch(() => {
+    document.getElementById('submitStatus').className = 'submit-status err';
+    document.getElementById('submitStatus').innerHTML = '❌ Lỗi kết nối. Hãy kiểm tra lại Sheet Endpoint.';
+  });
+}
+
+// ============================================================
+// RETRY
+// ============================================================
+function retryExam() {
+  state.answers = {};
+  state.submitted = false;
+  state.timerSeconds = 40 * 60;
+  state.playCounts = {};
+  state.currentSection = 0;
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('examHeader').style.display = 'block';
+  document.getElementById('examBody').style.display = 'block';
+  document.getElementById('bottomNav').style.display = 'block';
+  buildTabs();
+  renderSection(0);
+  startTimer();
+}
+
+/*
+=============================================================
+APPS SCRIPT CHO GIÁO VIÊN (dán vào Extensions > Apps Script):
+=============================================================
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['Ngày', 'Họ tên', 'Mã HV', 'Đề thi', 'Điểm/100', 'Đúng/40', 'Nghe/20', 'Đọc/20', 'Chi tiết đáp án']);
+    }
+    sheet.appendRow([
+      data.examDate, data.studentName, data.studentId, data.examName,
+      data.score, data.totalCorrect, data.listeningScore, data.readingScore,
+      data.answerDetail
+    ]);
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'ok'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'error', message: err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService
+    .createTextOutput('HSK Exam Sheet — OK')
+    .setMimeType(ContentService.MimeType.TEXT);
+}
+
+=============================================================
+*/
+</script>
+</body>
+</html>
